@@ -1,0 +1,170 @@
+*{box-sizing:border-box;font-family:Meiryo, "Hiragino Kaku Gothic ProN", 'Segoe UI', sans-serif}
+body{background:#f7fbff;color:#0b2b4a;margin:0;padding:0}
+.container{max-width:900px;margin:24px auto;padding:20px;background:#fff;border-radius:6px;box-shadow:0 6px 18px rgba(11,43,74,0.08)}
+header h1{margin:0 0 12px 0;font-size:20px;color:#0b3b6a}
+.screen{padding:12px}
+.hidden{display:none}
+.summary-list{list-style:none;padding:0}
+.summary-list li{padding:8px;border:1px solid #e6f0fb;margin-bottom:8px;border-radius:4px}
+.status{font-weight:700;margin-left:8px}
+button{background:#1e73be;color:#fff;border:none;padding:8px 12px;border-radius:4px;cursor:pointer}
+button[disabled]{opacity:0.5;cursor:default}
+.progress-bar{height:18px;background:#e6f0fb;border-radius:9px;overflow:hidden;margin:8px 0}
+.progress-bar > div{height:100%;background:#1e73be;width:0%;transition:width 0.2s}
+.log{height:200px;overflow:auto;background:#001826;color:#bfe7ff;padding:8px;border-radius:4px}
+.errors{color:#b00020;margin:8px 0}
+footer{margin-top:12px;color:#6d7b86}
+label{display:block;margin:6px 0}
+input[type=text],input[type=password]{padding:6px;border:1px solid #cfe6fb;border-radius:4px;width:100%}
+pre{white-space:pre-wrap}
+
+/* small UI tweaks restored */
+.req{color:#b00020;font-weight:700;margin-left:6px}
+.welcome{font-size:16px;color:#0b3b6a;margin:8px 0}
+
+/* Anaconda-like layout */
+.anaconda{display:flex;gap:18px}
+.sidebar{width:220px;background:#f1f7ff;border-radius:6px;padding:12px;border:1px solid #e6f0fb}
+.sidebar h3{margin:0 0 8px 0;color:#0b3b6a}
+.steps{list-style:none;padding:0;margin:0}
+.step-item{padding:8px;border-radius:4px;margin-bottom:6px;color:#28495f}
+.step-item::marker{display:none}
+.step-item.active{background:#1e73be;color:#fff;font-weight:700}
+.step-item.completed{background:#eaf6ff;color:#0b3b6a}
+.content{flex:1}
+.card{background:#fff;border:1px solid #e6f0fb;padding:18px;border-radius:6px;box-shadow:0 6px 12px rgba(11,43,74,0.04)}
+.account-box{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.account-box .avatar{width:48px;height:48px;border-radius:50%;background:#333;opacity:.9;}
+.account-box .account-name{font-weight:700;color:#222;}
+.account-box .account-help{font-size:0.9em;color:#666;}
+.screen.account-not-found .account-box .account-help{color:#b00;}
+
+/* Disk selection styles */
+.device-list{display:block;margin-top:8px;}
+.device-section{margin-bottom:12px;}
+.device-section-title{font-weight:700;margin-bottom:6px;}
+.device-box{display:flex;align-items:center;border:1px solid #ddd;padding:10px;border-radius:4px;background:#f5fbff;gap:12px;min-height:64px}
+.device-box.selected{border-color:#2b6cb0}
+.device-box .device-size{font-weight:700;color:#333;min-width:84px;text-align:center}
+.device-icon{font-size:28px;}
+.device-info{flex:1;min-width:0}
+.device-name{font-weight:600;}
+.device-desc{font-size:0.9em;color:#666;}
+.device-check{margin-left:auto}
+.device-box.empty{min-height:60px;display:flex;align-items:center;justify-content:center;color:#777;background:#fff;}
+.storage-settings{margin-top:10px;padding:10px;border:1px solid #eee;border-radius:4px;background:#fff;}
+.storage-title{font-weight:700;margin-bottom:6px;}
+.encryption-settings{font-size:0.95em;color:#333;}
+.storage-options{display:flex;align-items:center}
+/* GNOME-like login tweaks */
+#login .card{display:flex;flex-direction:column;align-items:center}
+#login input{max-width:320px}
+
+/* GNOME-style centered login */
+.gnome-login{display:flex;justify-content:center;padding:18px}
+.gnome-card{width:420px;max-width:92vw;padding:28px;border-radius:10px;background:linear-gradient(180deg,#ffffff, #fbfdff);box-shadow:0 12px 30px rgba(11,43,74,0.08);text-align:center}
+.gnome-avatar{width:112px;height:112px;margin:0 auto;border-radius:50%;background:linear-gradient(135deg,#334155,#0b3b6a);box-shadow:0 6px 18px rgba(11,43,74,0.12);display:flex;align-items:center;justify-content:center}
+.gnome-avatar svg{width:76px;height:76px;display:block}
+.gnome-username{margin-top:14px;font-size:20px;font-weight:700;color:#0b2b4a}
+.gnome-help{margin-top:10px;color:#6d7b86;font-size:0.95em}
+.gnome-card .input-wrap{margin-top:16px}
+.gnome-card input{width:100%;padding:12px;border-radius:8px;border:1px solid #e6f0fb;background:#fbfeff;font-size:15px}
+
+/* Sidebar title: prevent wrapping and ensure a fixed comfortable width */
+.sidebar h3{
+	white-space:nowrap;
+	width:180px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	margin:0 0 12px 0;
+	font-size:1.05em;
+}
+.gnome-card button{margin-top:18px;padding:10px 18px;border-radius:8px;background:#1e73be;color:#fff;border:none;font-weight:700}
+.gnome-card .errors{min-height:1.2em;margin-top:8px}
+
+@media(max-width:520px){
+	.gnome-card{padding:18px}
+	.gnome-avatar{width:88px;height:88px}
+	.gnome-avatar svg{width:68px;height:68px}
+}
+
+/* Desktop welcome screen (GNOME-like) */
+.desktop-welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+.desktop-body{max-width:640px;text-align:center}
+.desktop-illustration{width:160px;height:160px;margin:0 auto;border-radius:50%;background:linear-gradient(180deg,#89c8ff,#dbeeff);box-shadow:inset 0 -8px 0 rgba(255,255,255,0.2), 0 12px 30px rgba(11,43,74,0.08)}
+.desktop-body h2{margin-top:18px;font-size:22px;color:#0b2b4a}
+.desktop-sub{color:#6d7b86;margin-top:8px}
+.desktop-welcome button{margin:8px 8px;padding:10px 16px;border-radius:8px;border:none;background:#1e73be;color:#fff;font-weight:700}
+
+@media(max-width:600px){
+	.desktop-illustration{width:120px;height:120px}
+	.desktop-body{padding:0 12px}
+}
+
+@media(max-width:800px){
+	.anaconda{flex-direction:column}
+	.sidebar{width:100%}
+}
+
+/* Boot menu (console-like) */
+.boot-screen{background:#000;color:#88d6ff;padding:28px;border-radius:6px;font-family:Consolas, 'Courier New', monospace}
+.boot-screen h2{font-family:inherit;color:#0b3b6a;text-align:left;margin:0 0 12px 0;font-weight:700}
+.boot-list{list-style:none;padding-left:40px;margin:18px 0}
+.boot-item{padding:6px 0;color:#bfe7ff}
+.boot-item::before{content:'  ';display:inline-block;width:18px}
+.boot-item.selected{color:#a8ffb0;background:transparent}
+.boot-item.selected::before{content:'>';color:#a8ffb0;margin-right:6px}
+.boot-footer{margin-top:8px;color:#6fb4d8}
+.boot-footer .note{color:#7fbcd8;margin:8px 0}
+.auto-boot{color:#dbefff;margin-top:8px}
+
+/* Language chooser (two-column) */
+.lang-chooser{display:flex;gap:18px;margin-top:12px}
+.lang-left{width:48%;border:1px solid #e6f0fb;border-radius:4px;background:#fff}
+.lang-right{width:52%;border:1px solid #e6f0fb;border-radius:4px;background:#fff;padding:8px}
+.lang-list{list-style:none;margin:0;padding:8px;max-height:320px;overflow:auto}
+.lang-item{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:3px;color:#28495f;cursor:pointer}
+.lang-item .native{font-weight:700}
+.lang-item .en{font-style:italic;color:#8aa8bf;margin-left:8px}
+.lang-item.selected{background:#1e73be;color:#fff}
+.lang-item.selected .en{color:#dbefff}
+.lang-item.selected::after{content:'›';margin-left:8px;color:#dbefff;font-weight:700}
+.lang-detail{min-height:200px;padding:12px}
+.lang-detail h3{margin:0 0 8px 0;color:#0b3b6a}
+.lang-detail p{color:#3b556b}
+
+.lang-search-wrap{padding:8px;border-top:1px solid #eef6fb}
+.lang-search-box{display:flex;align-items:center;gap:6px}
+.lang-search-box input{flex:1;padding:8px;border:1px solid #cfe6fb;border-radius:4px}
+.lang-clear{background:#fff;border:1px solid #cfe6fb;padding:6px 8px;border-radius:4px;cursor:pointer}
+.lang-clear:hover{background:#f1f7ff}
+
+/* Right panel header like reference */
+.lang-right .lang-header{background:#1e73be;color:#fff;padding:8px 12px;font-weight:700;border-radius:4px 4px 0 0}
+.lang-right .lang-body{min-height:160px;padding:12px;border:1px solid #e6f0fb;border-top:none;border-radius:0 0 4px 4px;background:#fff}
+
+/* Boot guide text under title */
+.boot-guide{margin:8px 0 12px 0;color:#3b556b}
+
+/* Settings overview grid */
+.setting-grid{display:flex;gap:18px;margin-top:12px}
+.setting-column{flex:1}
+.setting-column h3{margin:0 0 8px 0;color:#28495f}
+.setting-card{display:flex;justify-content:space-between;align-items:center;padding:10px;border:1px solid #eee;border-radius:6px;background:#fff;margin-bottom:8px}
+.setting-body{display:block}
+.setting-title{font-weight:700;color:#0b3b6a}
+.setting-sub{color:#6d7b86;font-size:13px}
+.setting-status{font-weight:700}
+.status-ok{color:#0b8a3e}
+.status-missing{color:#d0454c}
+.clickable{cursor:pointer}
+.clickable:hover{box-shadow:0 4px 12px rgba(11,43,74,0.06)}
+
+/* Software selection */
+.software-grid{display:flex;gap:18px;margin-top:12px}
+.software-main{flex:1}
+.software-help{width:280px;border:1px solid #e6f0fb;border-radius:6px;padding:12px;background:#fff}
+.sw-item{padding:10px;border:1px solid #eef6fb;border-radius:6px;margin-bottom:8px;background:#fff}
+.sw-item .sw-desc{color:#6d7b86;font-size:13px;margin-top:6px}
+.sw-item.disabled{opacity:0.5}
+.sw-item.enabled input{margin-right:8px}

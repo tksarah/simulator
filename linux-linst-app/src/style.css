@@ -2,6 +2,37 @@
 body{background:#f7fbff;color:#0b2b4a;margin:0;padding:0}
 .container{max-width:900px;margin:24px auto;padding:20px;background:#fff;border-radius:6px;box-shadow:0 6px 18px rgba(11,43,74,0.08)}
 header h1{margin:0 0 12px 0;font-size:20px;color:#0b3b6a}
+
+/* Header: branded, modernized */
+:root{
+	--brand-start:#1e73be;
+	--brand-end:#0b3b6a;
+	--header-bg:linear-gradient(90deg,#073b5b 0%, #0b3b6a 100%);
+	--title-color:#ffffff;
+	--subtitle-color:#dbeeff;
+}
+.app-header{
+	padding:14px 16px;margin-bottom:12px;border-radius:8px;background:var(--header-bg);
+	/* 教科書風の明朝体をヘッダー専用に指定 */
+	font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+}
+
+/* プレシミュレーションページの本文すべてにヘッダーと同様の明朝体を適用する。
+   フッターの文字列は除外するため、footer とその子要素は対象外とする。 */
+.container :not(footer):not(footer *) {
+	font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-logo{width:52px;height:52px;flex-shrink:0;border-radius:8px;box-shadow:0 8px 20px rgba(11,43,74,0.06);display:block;object-fit:contain;cursor:pointer}
+.brand-text .title{font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;font-size:20px;margin:0;color:var(--title-color);font-weight:700;letter-spacing:0;line-height:1.05}
+.brand-text .subtitle{font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;font-size:15px;margin:2px 0 0 0;color:var(--subtitle-color);font-weight:400}
+.header-actions .badge{background:linear-gradient(180deg,#ffd24a,#ffb347);color:#073b5b;padding:6px 10px;border-radius:999px;font-weight:700;font-size:0.85em;box-shadow:0 6px 18px rgba(11,43,74,0.08);font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif}
+
+@media(max-width:520px){
+	.brand-text .title{font-size:16px}
+	.brand-logo{width:44px;height:44px}
+}
 .screen{padding:12px}
 .hidden{display:none}
 .summary-list{list-style:none;padding:0}
@@ -31,8 +62,20 @@ pre{white-space:pre-wrap}
 .step-item::marker{display:none}
 .step-item.active{background:#1e73be;color:#fff;font-weight:700}
 .step-item.completed{background:#eaf6ff;color:#0b3b6a}
+
+/* Sub-steps nested under summary */
+.sub-steps{list-style:none;padding-left:12px;margin:6px 0 0 0;display:none}
+.step-item.has-children .sub-steps{display:none}
+/* When the summary item is expanded, separate the sub-step area visually so
+	dark parent background doesn't make sub-step text hard to read. */
+.step-item.expanded{padding-bottom:8px}
+.step-item.expanded > .sub-steps{display:block;background:#ffffff;border:1px solid #e6f0fb;padding:8px;border-radius:6px;margin-top:8px;box-shadow:0 4px 10px rgba(11,43,74,0.04)}
+.sub-step{padding:6px;border-radius:4px;margin-bottom:6px;color:#28495f;font-size:0.95em;background:transparent}
+.sub-step.active{background:#1e73be;color:#fff;font-weight:700}
+.sub-step.completed{background:#eaf6ff;color:#0b8a3e}
+.sub-step::marker{display:none}
 .content{flex:1}
-.card{background:#fff;border:1px solid #e6f0fb;padding:18px;border-radius:6px;box-shadow:0 6px 12px rgba(11,43,74,0.04)}
+.card{position:relative;background:#fff;border:1px solid #e6f0fb;padding:18px;border-radius:6px;box-shadow:0 6px 12px rgba(11,43,74,0.04)}
 .account-box{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
 .account-box .avatar{width:48px;height:48px;border-radius:50%;background:#333;opacity:.9;}
 .account-box .account-name{font-weight:700;color:#222;}
@@ -94,6 +137,7 @@ pre{white-space:pre-wrap}
 .desktop-illustration{width:160px;height:160px;margin:0 auto;border-radius:50%;background:linear-gradient(180deg,#89c8ff,#dbeeff);box-shadow:inset 0 -8px 0 rgba(255,255,255,0.2), 0 12px 30px rgba(11,43,74,0.08)}
 .desktop-body h2{margin-top:18px;font-size:22px;color:#0b2b4a}
 .desktop-sub{color:#6d7b86;margin-top:8px}
+.desktop-username{font-weight:800;color:var(--brand-end);font-size:1.05em;letter-spacing:0.2px}
 .desktop-welcome button{margin:8px 8px;padding:10px 16px;border-radius:8px;border:none;background:#1e73be;color:#fff;font-weight:700}
 
 @media(max-width:600px){
@@ -184,3 +228,23 @@ pre{white-space:pre-wrap}
 /* Ensure the hidden class actually hides the #start element
    (ID selector has higher specificity than .hidden, so add this rule) */
 #start.hidden{display:none}
+
+/* Hint (電球) button */
+.hint-btn{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:6px;background:#fff;border:1px solid #e6f0fb;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 12px rgba(11,43,74,0.06);padding:6px}
+.hint-btn svg{width:18px;height:18px;display:block;fill:#ffcf3c}
+.hint-btn:focus{outline:3px solid rgba(30,115,190,0.18);box-shadow:0 0 0 3px rgba(30,115,190,0.08)}
+
+/* Hint modal overlay */
+.hint-modal-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,43,74,0.45);z-index:9999}
+.hint-modal{background:#fff;border-radius:10px;max-width:640px;width:94%;padding:18px;box-shadow:0 18px 40px rgba(11,43,74,0.2);color:#0b2b4a}
+.hint-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hint-header h3{margin:0;font-size:18px}
+.hint-close{background:#1e73be;color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer}
+.hint-body{margin-top:10px}
+.hint-body ul{margin:0 0 0 18px}
+.hint-modal-overlay.hidden{display:none}
+
+@media(max-width:520px){
+	.hint-modal{padding:12px}
+	.hint-btn{top:8px;right:8px;width:34px;height:34px}
+}

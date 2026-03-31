@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>アイコン案サンプル — Linuxインストールシミュレーター</title>
+<style>
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif; padding:24px; color:#222; background:#f7f8fb }
+h1 { margin-bottom:8px }
+.container { display:grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap:20px }
+.card { background:#fff; border-radius:12px; padding:16px; box-shadow:0 6px 18px rgba(15,23,42,0.06) }
+.icon-row { display:flex; gap:12px; align-items:center }
+.preview { display:flex; gap:8px; align-items:center }
+.preview svg, .preview img { border-radius:8px; background:transparent }
+.large { width:128px; height:128px }
+.caption { font-size:13px; color:#444; margin-top:8px }
+.footer { margin-top:18px; font-size:13px; color:#666 }
+</style>
+</head>
+<body>
+<h1>アイコン案サンプル — Linuxインストールシミュレーター</h1>
+<p>以下は別案の4スタイルです。SVG を直接置いているのでそのまま拡大・保存できます。気に入ったスタイルを教えてください（色・比率を調整可能）。</p>
+<div class="container">
+
+<!-- 1: フラット -->
+<div class="card">
+<h2>フラット：ペンギン + ギア（モダン）</h2>
+<div class="icon-row">
+<div class="preview">
+<svg viewBox="0 0 128 128" class="large" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="g1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#215fbf"/><stop offset="1" stop-color="#36a2c7"/></linearGradient>
+</defs>
+<rect width="128" height="128" rx="20" fill="url(#g1)"/>
+<ellipse cx="64" cy="72" rx="32" ry="38" fill="#0b0b0b"/>
+<ellipse cx="64" cy="78" rx="20" ry="26" fill="#ffffff"/>
+<ellipse cx="64" cy="46" rx="20" ry="18" fill="#0b0b0b"/>
+<circle cx="56" cy="44" r="4" fill="#fff"/>
+<circle cx="72" cy="44" r="4" fill="#fff"/>
+<circle cx="56" cy="44" r="2" fill="#111"/>
+<circle cx="72" cy="44" r="2" fill="#111"/>
+<polygon points="64,52 58,60 70,60" fill="#f5b33a"/>
+<ellipse cx="52" cy="104" rx="8" ry="4" fill="#f5b33a"/>
+<ellipse cx="76" cy="104" rx="8" ry="4" fill="#f5b33a"/>
+<!-- gear -->
+<g transform="translate(96,28) scale(0.7)">
+<circle cx="0" cy="0" r="12" fill="#fff"/>
+<g fill="#fff">
+<rect x="-2" y="-22" width="4" height="8" transform="rotate(0)"/>
+<rect x="-2" y="-22" width="4" height="8" transform="rotate(45)"/>
+<rect x="-2" y="-22" width="4" height="8" transform="rotate(90)"/>
+<rect x="-2" y="-22" width="4" height="8" transform="rotate(135)"/>
+<rect x="-2" y="-22" width="4" height="8" transform="rotate(180)"/>
+<rect x="-2" y="-22" width="4" height="8" transform="rotate(225)"/>
+<rect x="-2" y="-22" width="4" height="8" transform="rotate(270)"/>
+<rect x="-2" y="-22" width="4" height="8" transform="rotate(315)"/>
+</g>
+</g>
+</svg>
+</div>
+<div>
+<p class="caption">学習用として直感的な「Linux（ペンギン）」と「設定/インストール（ギア）」の組み合わせ。デスクトップアイコンに馴染む視認性。</p>
+</div>
+</div>
+</div>
+
+<!-- 2: ターミナル風 -->
+<div class="card">
+<h2>ターミナル風（モノクロ／ピクセル）</h2>
+<div class="icon-row">
+<div class="preview">
+<svg viewBox="0 0 128 128" class="large" xmlns="http://www.w3.org/2000/svg">
+<rect x="6" y="18" width="116" height="90" rx="8" fill="#071013"/>
+<rect x="6" y="6" width="116" height="16" rx="4" fill="#0b2f0b"/>
+<circle cx="18" cy="14" r="3" fill="#ff5f56"/>
+<circle cx="28" cy="14" r="3" fill="#ffbd2e"/>
+<circle cx="38" cy="14" r="3" fill="#28c840"/>
+<!-- simplified pixel penguin -->
+<g fill="#5cff7f">
+<rect x="46" y="42" width="4" height="4"/>
+<rect x="50" y="42" width="4" height="4"/>
+<rect x="54" y="42" width="4" height="4"/>
+<rect x="44" y="46" width="4" height="4"/>
+<rect x="58" y="46" width="4" height="4"/>
+<rect x="46" y="50" width="16" height="8"/>
+<rect x="50" y="58" width="8" height="8"/>
+</g>
+<text x="16" y="104" font-family="monospace" font-size="10" fill="#5cff7f">$ sudo apt install simulator</text>
+</svg>
+</div>
+<div>
+<p class="caption">ターミナル操作の学習シーンに合うデザイン。コマンドライン感を強調したい場合に適します。</p>
+</div>
+</div>
+</div>
+
+<!-- 3: インストーラー箱 -->
+<div class="card">
+<h2>インストーラー箱（ダウンロード）</h2>
+<div class="icon-row">
+<div class="preview">
+<svg viewBox="0 0 128 128" class="large" xmlns="http://www.w3.org/2000/svg">
+<rect width="128" height="128" rx="20" fill="#4a89ff"/>
+<g transform="translate(24,34)">
+<rect x="0" y="10" width="80" height="44" rx="4" fill="#fff"/>
+<rect x="0" y="0" width="80" height="16" rx="4" fill="#cfe6ff"/>
+<polygon points="40,50 40,70 28,60 32,56 40,64 48,56 52,60" fill="#4a89ff"/>
+</g>
+<g transform="translate(78,82) scale(0.6)">
+<circle cx="0" cy="0" r="18" fill="#0b0b0b"/>
+<ellipse cx="0" cy="6" rx="10" ry="12" fill="#fff"/>
+<circle cx="-5" cy="-2" r="2" fill="#fff"/>
+<circle cx="5" cy="-2" r="2" fill="#fff"/>
+<polygon points="0,2 -6,10 6,10" fill="#f5b33a"/>
+</g>
+</svg>
+</div>
+<div>
+<p class="caption">インストールという行為を象徴する「箱＋矢印」。配布・インストーラー用のアイコンに向いています。</p>
+</div>
+</div>
+</div>
+
+<!-- 4: バッジ -->
+<div class="card">
+<h2>バッジ（教育的）</h2>
+<div class="icon-row">
+<div class="preview">
+<svg viewBox="0 0 128 128" class="large" xmlns="http://www.w3.org/2000/svg">
+<circle cx="64" cy="64" r="60" fill="#1abc9c"/>
+<circle cx="64" cy="64" r="44" fill="#fff"/>
+<ellipse cx="64" cy="64" rx="28" ry="32" fill="#0b0b0b"/>
+<ellipse cx="64" cy="72" rx="16" ry="20" fill="#fff"/>
+<circle cx="56" cy="60" r="4" fill="#fff"/>
+<circle cx="72" cy="60" r="4" fill="#fff"/>
+<rect x="46" y="42" width="36" height="8" fill="#0b0b0b"/>
+<polygon points="64,34 44,42 84,42" fill="#0b0b0b"/>
+</svg>
+</div>
+<div>
+<p class="caption">学習・教育を前面に出すバッジ風。チュートリアルやコース素材に使いやすい見た目です。</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+<div>このファイル: <a href="style_samples.html">style_samples.html</a>
+</div>
+<div>既存の生成済アイコン: <a href="32x32.png">32x32.png</a>, <a href="128x128.png">128x128.png</a>, <a href="icon.ico">icon.ico</a></div>
+</div>
+
+</body>
+</html>

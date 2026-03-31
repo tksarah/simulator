@@ -5,11 +5,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AlmaLinux インストールシミュレーター (アプリ本体)</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>AlmaLinux インストール体験シミュレーター</h1>
+    <header class="app-header" role="banner" aria-label="AlmaLinux インストール体験シミュレーター">
+      <div class="header-inner">
+        <div class="brand">
+          <img src="almalinux_logo.png" id="brandLogo" class="brand-logo" role="button" tabindex="0" width="48" height="48" alt="AlmaLinux ロゴ（クリックでプレシミュレーションに戻る）" title="プレシミュレーションに戻る" />
+          <div class="brand-text">
+            <h1 class="title">AlmaLinux インストール体験シミュレーター</h1>
+            <p class="subtitle">インストールの流れをやさしく体験</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span class="badge">学習用</span>
+        </div>
+      </div>
     </header>
 
     <main>
@@ -20,7 +32,13 @@
             <li data-screen="start" class="step-item">メディア挿入</li>
             <li data-screen="boot" class="step-item">ブートメニュー</li>
             <li data-screen="language" class="step-item">言語選択</li>
-            <li data-screen="summary" class="step-item">インストール概要</li>
+            <li data-screen="summary" class="step-item has-children">インストール概要
+              <ul class="sub-steps">
+                <li data-screen="software" class="step-item sub-step">ソフトウェアの選択</li>
+                <li data-screen="disk" class="step-item sub-step">インストール先</li>
+                <li data-screen="user" class="step-item sub-step">ユーザー作成</li>
+              </ul>
+            </li>
             <li data-screen="progress" class="step-item">インストール</li>
             <li data-screen="complete" class="step-item">完了</li>
             <li data-screen="login" class="step-item">ログイン</li>
@@ -388,7 +406,7 @@
           <div class="desktop-body">
             <div class="desktop-illustration"></div>
             <h2>AlmaLinux へようこそ</h2>
-            <p id="welcomeName" class="desktop-sub">操作方法については、ツアーを確認してください。</p>
+            <p id="welcomeName" class="desktop-sub">ようこそ、<span id="desktopUsername" class="desktop-username" aria-live="polite"></span> さん。インストールは完了しました。</p>
             <div style="margin-top:18px">
               <!-- 終了ボタンを追加 -->
               <button id="finish">終了</button>

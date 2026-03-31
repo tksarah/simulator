@@ -42,40 +42,56 @@
           </main>
         </div>
     <script>
-      document.getElementById('startSimulation').addEventListener('click', function(){
-        // シングルボタンで通常遷移
-        window.location.href = 'app-main.html';
-      });
+      (function(){
+        const startBtn = document.getElementById('startSimulation');
+        if(startBtn){
+          startBtn.addEventListener('click', function(){
+              // シングルボタンで通常遷移 — localStorage をクリアしてから遷移
+              try{ localStorage.clear(); }catch(e){}
+              window.location.href = 'app-main.html';
+            });
+
+        
+        }
+      })();
     </script>
 
     <style>
+      :root{
+        --accent:#0b63b5;
+        --muted:#6b7280;
+        --card-bg:#ffffff;
+        --badge-bg:#e6f2ff;
+        --badge-color:#075985;
+        --radius-lg:12px;
+        --radius-pill:999px;
+        --shadow-1:0 6px 20px rgba(11,99,181,0.08);
+      }
       .pre-sim-top-img{width:90%;max-width:680px;height:auto;display:block;margin:0 auto 12px;border-radius:8px}
       .meta-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px}
-      .version{color:#6b7280;font-size:13px}
+      .version{color:var(--muted);font-size:13px}
       .learning-goals{list-style:disc;padding-left:18px;text-align:left;color:#14213d;margin:8px 0}
       .info{background:#f8fafc;border-left:4px solid #60a5fa;padding:10px;border-radius:6px;color:#0f172a;margin:12px 0}
       .checklist{text-align:left;margin:12px 0}
       .checklist ul{padding-left:18px;margin:6px 0}
       .hints{background:#fff7ed;border:1px solid #fde3b8;padding:12px;border-radius:8px;margin-top:14px}
       .secondary{background:transparent;border:1px solid #e6e9f2;color:#334155;padding:10px 14px;border-radius:10px;font-size:14px;cursor:pointer}
-      .actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
-      @media (min-width:900px){
-        .pre-sim-card{max-width:900px}
+      .actions{display:flex;gap:12px;justify-content:center;margin-top:16px;align-items:center}
+      @media (min-width:900px){ .pre-sim-card{max-width:900px} }
+
+      /* Unified control tokens */
+      .pre-sim-controls{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
+      #startSimulation{background:var(--accent);color:#fff;border:none;border-radius:var(--radius-lg);padding:12px 22px;font-size:16px;font-weight:700;box-shadow:var(--shadow-1);cursor:pointer}
+      #startSimulation:hover{filter:brightness(0.98);transform:translateY(-1px)}
+      /* Responsive: stack vertically on narrow screens */
+      @media(max-width:520px){
+        #startSimulation{width:100%}
       }
 
       /* Footer moved inside card: show muted left/right info (stylish italic) */
       .pre-sim-card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #eef6fb;margin-top:18px;font-size:13px}
-      .pre-sim-card-footer-left,.pre-sim-card-footer-right{
-        color:#6b7280; /* muted gray */
-        font-style:italic;
-        font-weight:400; /* normal weight, not emphasized */
-        font-family: Georgia, 'Times New Roman', serif;
-        letter-spacing:0.1px;
-        opacity:0.95;
-      }
-      @media(max-width:520px){
-        .pre-sim-card-footer{flex-direction:column;gap:8px;text-align:center}
-      }
+      .pre-sim-card-footer-left,.pre-sim-card-footer-right{ color:var(--muted); font-style:italic; font-weight:400; font-family: Georgia, 'Times New Roman', serif; letter-spacing:0.1px; opacity:0.95; }
+      @media(max-width:520px){ .pre-sim-card-footer{flex-direction:column;gap:8px;text-align:center} }
     </style>
   </body>
 </html>

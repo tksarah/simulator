@@ -340,7 +340,7 @@ document.getElementById('confirmUser').addEventListener('click',()=>{
   const uname = document.getElementById('username').value.trim();
   const pw = document.getElementById('password').value;
   // store user (without revealing password in state.user) and persist credentials for demo
-  state.user = { fullname: document.getElementById('fullname').value.trim(), username: uname, isAdmin: document.getElementById('isAdmin').checked };
+  state.user = { fullname: document.getElementById('fullname').value.trim(), username: uname };
   try{
     localStorage.setItem('installer_user', JSON.stringify({ username: uname, password: pw }));
     // keep runtime-only copy of installer password so login works immediately
@@ -672,7 +672,7 @@ const hints = {
         ]
       },
       'パスワードは8文字以上・英字と数字を含めてください。',
-      '管理者にするかはチェックで指定します.'
+      
     ]
   },
   progress: {

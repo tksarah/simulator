@@ -92,7 +92,7 @@
             </div>
           </div>
         </div>
-        <div style="margin-top:12px">
+        <div class="screen-actions">
           <button id="confirmLang">次へ</button>
         </div>
       </section>
@@ -240,7 +240,7 @@
           </div>
         </div>
 
-        <div style="margin-top:12px">
+        <div class="screen-actions">
           <button id="startInstall" disabled>インストール開始</button>
         </div>
       </section>
@@ -295,7 +295,7 @@
           <label><input type="checkbox" id="encryptData"> データを暗号化する。パスフレーズの設定は、次のセクションで行います。</label>
         </div>
 
-        <div style="margin-top:12px">
+        <div class="screen-actions">
           <button id="confirmDisk">完了</button>
         </div>
           </section>
@@ -337,7 +337,7 @@
           </div>
         </div>
 
-        <div style="margin-top:12px">
+        <div class="screen-actions">
           <button id="confirmSoftware">完了</button>
         </div>
           </section>
@@ -345,13 +345,52 @@
           <!-- User create -->
           <section id="user" class="screen card hidden">
         <h2>ユーザー作成</h2>
-        <label>フルネーム（任意）<br><input id="fullname"></label><br>
-        <label>ユーザー名（必須） <span class="req">*</span><br><input id="username" required></label><br>
-        <label>パスワード（必須） <span class="req">*</span><br><input id="password" type="password"></label><br>
-        <label>パスワード確認（必須） <span class="req">*</span><br><input id="password2" type="password"></label><br>
-        <label><input id="requirePw" type="checkbox" checked> パスワードを要求する</label><br>
-        <div id="userErrors" class="errors"></div>
-        <button id="confirmUser">完了</button>
+        <form id="userForm" novalidate>
+          <div class="user-row">
+            <label for="fullname" class="user-label">フルネーム（任意）</label>
+            <div class="user-field"><input id="fullname" name="fullname" type="text" placeholder="例：山田 太郎"></div>
+          </div>
+
+          <div class="user-row">
+            <label for="username" class="user-label">ユーザー名（必須） <span class="req">*</span></label>
+            <div class="user-field"><input id="username" name="username" type="text" required placeholder="半角英数字・記号（- _）"></div>
+          </div>
+
+          <div class="user-row user-checkboxes">
+            <div class="user-label"></div>
+            <div class="user-field">
+              <label class="checkbox-inline"><input id="isAdmin" type="checkbox"> このユーザーを管理者にする</label>
+              <label class="checkbox-inline"><input id="requirePw" type="checkbox"> このアカウントを使用する場合にパスワードを要求する</label>
+            </div>
+          </div>
+
+          <div class="user-row">
+            <label for="password" class="user-label">パスワード（必須） <span class="req">*</span></label>
+            <div class="user-field">
+              <div class="pw-wrap">
+                <input id="password" name="password" type="password" autocomplete="new-password" placeholder="8文字以上、英字と数字を含む">
+                <button type="button" class="pw-toggle" aria-label="表示切替">👁</button>
+              </div>
+              <div class="pw-strength">
+                <div class="pw-strength-bar"><div id="pwStrengthBar" class="pw-strength-fill"></div></div>
+                <div id="pwStrengthText" class="pw-strength-text">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-row">
+            <label for="password2" class="user-label">パスワードの確認（必須） <span class="req">*</span></label>
+            <div class="user-field">
+              <div class="pw-wrap">
+                <input id="password2" name="password2" type="password" autocomplete="new-password" placeholder="確認のためもう一度入力">
+                <button type="button" class="pw-toggle" data-target="password2" aria-label="表示切替">👁</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="userErrors" class="errors"></div>
+          <div class="user-actions"><button id="confirmUser" type="button">完了</button></div>
+        </form>
           </section>
 
           <!-- Install progress -->
@@ -364,7 +403,9 @@
           <!-- Complete -->
           <section id="complete" class="screen card hidden">
         <h2>インストールが完了しました</h2>
-        <button id="reboot">再起動</button>
+        <div class="screen-actions">
+          <button id="reboot">再起動</button>
+        </div>
           </section>
 
           <!-- Login -->

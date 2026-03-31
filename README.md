@@ -1,6 +1,6 @@
 Simulator
 
-Version: 1.0.0
+Version: 1.1.0
 
 [HowTo (学生・講師向け)](HowTo.md)
 
@@ -17,7 +17,7 @@ Version: 1.0.0
 - ライセンス
 
 **概要**
-このプロジェクトは、ブラウザ版（軽量）と Tauri を使ったデスクトップ版（Rust + Web 技術）の両方を含むシンプルなシミュレータです。フロントエンドは Vite/HTML/CSS/JS を使って構成され、デスクトップビルドは `src-tauri` フォルダの設定に従って行います。
+このプロジェクトは、ブラウザ版（軽量）と Tauri を使ったデスクトップ版（Rust + Web 技術）の両方を含むシンプルなシミュレータです。フロントエンドは Vite/HTML/CSS/JS を使って構成され、デスクトップビルドは `linux-linst-app/src-tauri` フォルダの設定に従って行います。
 
 **主要機能**
 - シンプルな UI によるシミュレーションの開始・停止
@@ -29,7 +29,7 @@ Version: 1.0.0
 - `linux-linst-app/` - Vite を使ったフロントエンドプロジェクト（開発用）
   - `src/` - フロントエンドソース
   - `package.json`, `vite.config.ts`, `tsconfig.json` - 開発ツール設定
-- `src-tauri/` - Tauri（デスクトップ）関連の設定と Rust ソース
+- `linux-linst-app/src-tauri/` - Tauri（デスクトップ）関連の設定と Rust ソース
   - `Cargo.toml`, `build.rs`, `src/` - Rust サイドの実装
 
 **開発環境セットアップ（前提）**
@@ -46,11 +46,16 @@ Version: 1.0.0
    - 依存インストール: `npm install` または `yarn`
    - 開発サーバ開始: `npm run dev`（package.json のスクリプトに依存）
 
-3. Tauri デスクトップビルド
-   - Rust と Tauri のセットアップを確認してください（公式ドキュメント参照）。
-   - `cd linux-linst-app`（またはリポジトリルートから `src-tauri` を使うワークフローに従う）
-   - デスクトップビルド: `npm run build`（フロントエンドをビルド）
-   - Tauri バンドル: `cargo build --release` または `tauri build`（プロジェクト設定に依存）
+3. Tauri デスクトップビルド（linux-linst-app 配下）
+  - 事前準備：Rust（toolchain）、Cargo、Tauri CLI が必要です。公式ドキュメントを参照してください。
+  - 手順（推奨）:
+    1. `cd linux-linst-app`
+    2. 依存インストール: `npm install` または `yarn`
+    3. フロントエンドをローカルで確認: `npm run dev`
+    4. フロントエンドをビルド（リリース準備）: `npm run build`
+    5. Tauri 開発（デバッグ）: `npm run tauri -- dev`  または `npm run tauri dev`
+    6. リリースバンドル作成: `npm run tauri -- build`  または `npx tauri build`（環境により `cargo build --release` を併用）
+  - 補足: `package.json` の `scripts` は `dev`, `build`, `tauri` を提供しています。Tauri 実行時は `linux-linst-app` ディレクトリでコマンドを実行してください。
 
 **使用方法（ブラウザ）**
 - ページを開き、画面上の「Start」「Stop」などのボタンでシミュレーションを操作してください。

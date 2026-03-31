@@ -258,16 +258,7 @@ if(linkSoftware) linkSoftware.addEventListener('click', ()=> show('software'));
 const linkUser = document.getElementById('link-user');
 if(linkUser) linkUser.addEventListener('click', ()=> show('user'));
 
-// Sidebar click delegation: handle clicks on any step (including nested sub-steps)
-const sidebarEl = document.querySelector('.sidebar');
-if(sidebarEl){
-  sidebarEl.addEventListener('click', (e)=>{
-    const li = e.target.closest('.step-item[data-screen]');
-    if(!li || !sidebarEl.contains(li)) return;
-    const sc = li.getAttribute('data-screen');
-    if(sc) show(sc);
-  });
-}
+// Sidebar click navigation removed: clicking sidebar titles no longer changes screens.
 
 const toDisk = document.getElementById('toDisk');
 if(toDisk) toDisk.addEventListener('click',()=>{ show('disk'); });
@@ -573,6 +564,51 @@ window.addEventListener('DOMContentLoaded', ()=>{
   setActiveSidebar('start');
   // insert hint buttons into each screen card
   try{ insertHintButtons(); }catch(e){ /* ignore if function not yet available */ }
+  // パスワード強度バーと表示切替をユーザー作成画面にアタッチ
+  try{
+    (function attachPasswordHelpers(){
+      const pw = document.getElementById('password');
+      const pw2 = document.getElementById('password2');
+      const bar = document.getElementById('pwStrengthBar');
+      const txt = document.getElementById('pwStrengthText');
+      function scorePassword(p){
+        let score = 0;
+        if(!p) return 0;
+        if(p.length >= 8) score++;
+        if(p.length >= 12) score++;
+        if(/[A-Z]/.test(p)) score++;
+        if(/[0-9]/.test(p)) score++;
+        if(/[^A-Za-z0-9]/.test(p)) score++;
+        return score;
+      }
+      function updatePW(pwVal){
+        if(!bar) return;
+        const s = scorePassword(pwVal);
+        const percent = Math.min(100, Math.round((s/5) * 100));
+        bar.style.width = percent + '%';
+        bar.classList.remove('weak','medium','strong');
+        const fill = bar;
+        if(!fill) return;
+        fill.classList.remove('weak','medium','strong');
+        if(percent <= 40){ fill.classList.add('weak'); if(txt) txt.textContent = '弱い'; }
+        else if(percent <= 80){ fill.classList.add('medium'); if(txt) txt.textContent = '普通'; }
+        else { fill.classList.add('strong'); if(txt) txt.textContent = '強い'; }
+      }
+      function makeToggle(btn){
+        if(!btn) return;
+        btn.addEventListener('click', ()=>{
+          const targetId = btn.getAttribute('data-target');
+          const target = targetId ? document.getElementById(targetId) : (btn.previousElementSibling && btn.previousElementSibling.tagName === 'INPUT' ? btn.previousElementSibling : null);
+          if(!target) return;
+          if(target.type === 'password'){ target.type = 'text'; btn.textContent = '👁️'; }
+          else { target.type = 'password'; btn.textContent = '👁'; }
+        });
+      }
+      if(pw){ pw.addEventListener('input', ()=> updatePW(pw.value)); }
+      // attach toggle buttons if present
+      document.querySelectorAll('.pw-toggle').forEach(makeToggle);
+    })();
+  }catch(e){ /* ignore if elements missing */ }
   // Restore persisted user (if any) so the demo login can accept installer-created account
   try{
     const saved = localStorage.getItem('installer_user');

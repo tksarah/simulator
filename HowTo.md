@@ -37,4 +37,26 @@ python -m http.server 8000
 
 ---
 
-詳細な操作手順やトラブル対応は元の `Student.md` / `Teacher.md` を参照してください（リポジトリに保持しています）。
+## 開発者向け（簡易）
+
+- Vite 開発サーバ（フロントエンドを編集して動作確認する場合）:
+
+```powershell
+cd linux-linst-app
+npm install
+npm run dev
+```
+
+- Tauri でデスクトップ実行／ビルドする場合（linux-linst-app 配下で実行）:
+
+```powershell
+cd linux-linst-app
+npm install
+# 開発実行（Tauri の dev）
+npm run tauri -- dev
+# リリースバンドル作成
+npm run build
+npm run tauri -- build
+```
+
+詳細な操作手順やトラブル対応は `README.md` を参照してください。

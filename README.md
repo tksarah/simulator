@@ -1,376 +1,50 @@
-AlmaLinux インストール体験シミュレータ (Simulator)
 
-Version: 1.1.0
+# Simulator
 
-概要
-- 目的: 学生向けに AlmaLinux のインストール手順を疑似体験させ、インストール手順と概念を学ばせること。
-- 範囲: Anaconda 風 UI の一本道シミュレーション（実際のディスク操作やシステム変更は行わない）。
-- 対象: IT・Linux 初学者、授業・研修の受講生、講師のデモ。
+**バージョン**: 1.1.0
 
-主要仕様
-- 画面遷移: メディア挿入 → ブートメニュー → 言語選択 → 概要 → ディスク選択 → ソフトウェア選択 → ユーザー作成 → インストール進捗 → 完了 → ログイン → 簡易デスクトップ
-- 進捗ログ: 各ステップ到達を JSON で出力（`progress.json`）。個人を特定する情報やパスワードは含まない。
-- 実行環境: ブラウザ（静的ファイル）および Tauri（デスクトップビルド）
+## 概要
+このリポジトリは、HTML/CSS/JavaScript を使ったシンプルなブラウザ向けシミュレータを含みます。フロントエンドの主要なファイル群と、オフライン対応のための Service Worker (`sw.js`) を提供します。デスクトップ向けラッパーとして Tauri ベースのサブプロジェクトが `linux-linst-app/` に含まれます。
 
-学生向け（まず読む）
-- 学生の最短起動手順は [HowTo.md](HowTo.md) にまとめています。まずはそちらを参照してください。
+## 主要ファイル
+- `index.html` — ルートおよびエントリポイント
+- `app-main.html` — アプリ本体の HTML
+- `app.js` — メインの JavaScript
+- `style.css` — スタイルシート
+- `sw.js` — Service Worker（オフライン機能）
+- `linux-linst-app/` — Tauri デスクトップアプリ用ソース
 
-[HowTo (学生・講師向け)](HowTo.md)
+## 簡単な使い方
+1. このディレクトリで `index.html` をブラウザで開きます。
+2. 開発中は `app.js` や `style.css` を編集してブラウザをリロードしてください。
 
-このリポジトリはローカル向けのデスクトップ／Webシミュレータアプリケーションのサンプル実装です。
+## バージョン管理
+現在のバージョンは `1.1.0` です。リリース時には Git タグ（例: `v1.1.0`）を付けてください。
 
-目次
-- 概要
-- 主要機能
-- ディレクトリ構成
-- 開発環境セットアップ
-- 実行方法
-- ビルド
-- 貢献
-- ライセンス
-
-**概要**
-このプロジェクトは、ブラウザ版（軽量）と Tauri を使ったデスクトップ版（Rust + Web 技術）の両方を含むシンプルなシミュレータです。フロントエンドは Vite/HTML/CSS/JS を使って構成され、デスクトップビルドは `linux-linst-app/src-tauri` フォルダの設定に従って行います。
-
-**主要機能**
-- シンプルな UI によるシミュレーションの開始・停止
-- アセット（画像など）の読み込み表示
-- デスクトップ実行（Tauri）によるネイティブバイナリ出力
-
-**ディレクトリ構成（抜粋）**
-- `index.html`, `app.js`, `style.css` - ルートの軽量ブラウザ版サンプル
-- `linux-linst-app/` - Vite を使ったフロントエンドプロジェクト（開発用）
-  - `src/` - フロントエンドソース
-  - `package.json`, `vite.config.ts`, `tsconfig.json` - 開発ツール設定
-- `linux-linst-app/src-tauri/` - Tauri（デスクトップ）関連の設定と Rust ソース
-  - `Cargo.toml`, `build.rs`, `src/` - Rust サイドの実装
-
-**開発環境セットアップ（前提）**
-- Node.js（推奨: 最新の LTS）
-- npm または yarn
-- Rust と Cargo（Tauri デスクトップをビルドする場合）
-- Tauri CLI（デスクトップビルドを行うとき）
-
-1. ルートのブラウザ版を試す（軽量）
-   - 任意の静的サーバで `index.html` を開くか、ブラウザで直接開いてください。
-
-2. Vite フロントエンドで開発する
-   - `cd linux-linst-app`
-   - 依存インストール: `npm install` または `yarn`
-   - 開発サーバ開始: `npm run dev`（package.json のスクリプトに依存）
-
-3. Tauri デスクトップビルド（linux-linst-app 配下）
-  - 事前準備：Rust（toolchain）、Cargo、Tauri CLI が必要です。公式ドキュメントを参照してください。
-  - 手順（推奨）:
-    1. `cd linux-linst-app`
-    2. 依存インストール: `npm install` または `yarn`
-    3. フロントエンドをローカルで確認: `npm run dev`
-    4. フロントエンドをビルド（リリース準備）: `npm run build`
-    5. Tauri 開発（デバッグ）: `npm run tauri -- dev`  または `npm run tauri dev`
-    6. リリースバンドル作成: `npm run tauri -- build`  または `npx tauri build`（環境により `cargo build --release` を併用）
-  - 補足: `package.json` の `scripts` は `dev`, `build`, `tauri` を提供しています。Tauri 実行時は `linux-linst-app` ディレクトリでコマンドを実行してください。
-
-**使用方法（ブラウザ）**
-- ページを開き、画面上の「Start」「Stop」などのボタンでシミュレーションを操作してください。
-
-**貢献**
-- バグ報告や機能提案は Issue を通じてお願いします。
-- プルリクエストは小さめに分けてください。
-
-**ライセンス**
-- 特に指定がなければ、適宜プロジェクトに合うライセンスを追加してください（例: MIT）。
+## ライセンス
+このプロジェクトは MIT ライセンスの下で配布されます。
 
 ---
 
-この README はプロジェクト全体の簡潔な仕様を示しています。より詳細な開発手順やビルドフロー、API 仕様などを追記したい場合は指示してください。
----
-
-# 📘 **AlmaLinux インストール体験シミュレーター 仕様書（正式版）**
-
-## 1. 概要
-
-本アプリケーションは、専門学生向けに **AlmaLinux のインストールプロセスを疑似体験できる Windows アプリケーション**である。  
-実際の OS インストールは行わず、**インストーラー（Anaconda）風の UI を再現し、操作の流れを理解することを目的とする。**
-
-- 開発環境：Tauri（Windows アプリ）
-- UI：HTML/CSS/JavaScript（Anaconda 風デザイン）
-- 想定利用：講師が授業中に説明しながら進める
-- 操作は一本道で、複雑な分岐はなし
-
----
-
-## Web版実装について
-
-このリポジトリには、Tauri版の方針に沿った簡易な「ブラウザ版」実装が同梱されています。授業や検証で手早く動かせるように静的なHTML/CSS/JSで作られています。
-
-ファイル:
-
-- `index.html` — メイン画面
-- `style.css` — スタイル
-- `app.js` — 挙動（ステート管理・フェイクログ・進捗エクスポート）
-
-動作方法（簡易サーバで配信）:
-
-```powershell
-# Python 3 が使える環境ならリポジトリ直下で
-python -m http.server 8000
-
-# ブラウザで開く
-http://localhost:8000/
-```
-
-機能:
-
-- README の仕様に沿った一本道の画面遷移
-- ユーザー作成のバリデーション（パスワードは保存しない）
-- フェイクログとプログレスバー
-- 進捗を JSON としてダウンロード可能（`progress.json`）
-
-注意:
-
-- このブラウザ版はあくまで学習用の疑似体験です。実際のインストールやディスク操作は一切行いません。
-
----
-
-## 教師向けに関する注意
-
-講師向けの進捗集約ツール（以前は `teacher.html`）はこのリポジトリから削除されました。
-学生は引き続き `index.html` で `progress.json` をダウンロードできます。複数ファイルの集計は外部ツール（例: Excel, LibreOffice, スクリプト等）で行ってください。
-
-
----
-
-# 2. 画面遷移フロー
-
-
-
-
-
-以下の順番で画面が進行する。
-
-1. **インストール開始画面（メディア挿入）**
-2. **ブートメニュー画面（Install AlmaLinux を選択）**
-3. **言語選択画面**
-4. **インストール概要画面（Anaconda 風）**
-   - インストール先
-   - ソフトウェア選択
-   - ユーザー作成
-5. **インストール先の設定画面**
-6. **ソフトウェア選択画面**
-7. **ユーザー作成画面**
-8. **インストール概要画面に戻り、インストール開始**
-9. **インストール進捗画面（フェイクログ＋プログレスバー）**
-10. **インストール完了画面（再起動ボタン）**
-11. **再起動後の GUI ログイン画面（GNOME 風）**
-12. **ログイン後の AlmaLinux デスクトップ画面（簡易 UI）**
-
----
-
-# 3. 各画面の仕様
-
-## 3.1 インストール開始画面
-- CD/DVD のイメージを表示
-- 「インストールメディアを挿入」ボタンで次へ進む
-
-## 3.2 ブートメニュー画面
-- “Install AlmaLinux” を選択するだけの画面
-- 他の選択肢は無効化または非表示
-
-## 3.3 言語選択画面
-- 日本語をデフォルト選択
-- 他言語は選択不可でもよい（教育用のため）
-
-## 3.4 インストール概要画面（Anaconda 風）
-- 3 つの設定項目を表示  
-  - インストール先  
-  - ソフトウェア選択  
-  - ユーザー作成  
-- 完了状態をアイコンで表示  
-  - ✔（完了）  
-  - ⚠（未完了）
-- **すべて完了したら「インストール開始」ボタンが有効化**
-
----
-
-# 4. 各設定画面の仕様
-
-## 4.1 インストール先の設定画面
-- ディスクを 1 つ選択するだけ
-- パーティション設定は自動（選択不可）
-- 完了条件：ディスクが選択されている
-
-## 4.2 ソフトウェア選択画面
-### ベース環境（固定）
-- **サーバー（GUI 使用）**
-
-### 追加ソフトウェア（固定）
-- **ベーシック Web サーバー**
-
-### 完了条件
-- 上記 2 つが選択されている
-
-## 4.3 ユーザー作成画面
-### 入力項目
-- フルネーム（任意）
-- ユーザー名（必須）
-- パスワード（必須）
-- パスワード確認（必須）
-
-### チェックボックス
-- [ ] このユーザーを管理者にする  
-- [ ] このアカウントを使用する場合にパスワードを要求する  
-
-### パスワードバリデーション
-- 8 文字以上  
-- 英字＋数字を含む  
-- 同一文字の連続禁止  
-- ユーザー名と同じ文字列禁止  
-- 確認用と一致すること  
-
-### 完了条件
-- 必須項目がすべてバリデーションを通過
-
----
-
-# 5. インストール進捗画面
-
-## 5.1 フェイクログ仕様
-- 完全なリアルさは不要
-- 20〜40 行程度のログを 100〜300ms 間隔で表示
-- 例：
-  ```
-  パッケージ httpd をインストール中...
-  パッケージ php をインストール中...
-  システム設定を適用中...
-  ```
-- ソフトウェア選択によるログ分岐は不要
-
-## 5.2 プログレスバー
-- ログの進行に合わせて 0% → 100%
-- 均等に進めばよい
-
----
-
-# 6. インストール完了画面
-- 「インストールが完了しました」
-- 「再起動」ボタンで次へ進む
-
----
-
-# 7. 再起動後の GUI ログイン画面
-
-## 7.1 GNOME 風デザイン
-- ユーザーアイコン
-- ユーザー名入力欄
-- パスワード入力欄
-
-## 7.2 認証情報（固定）
-- **ユーザー名：techc**  
-- **パスワード：PassW0rd**
-
-## 7.3 認証結果
-- 正しい → デスクトップへ  
-- 間違い → 「認証に失敗しました」
-
----
-
-# 8. デスクトップ画面（簡易 UI）
-- AlmaLinux 風の壁紙
-- 「AlmaLinux へようこそ」メッセージ
-- 実際の GNOME を再現する必要はない
-
----
-
-# 9. 戻る操作について
-- **戻るボタンは実装しない**
-- 理由：状態管理が複雑化するため、教育用の一本道構成とする
-
----
-
-# 10. ログ機能
-
-## 10.1 目的
-- 学生がどこまで進んだかを確認できるようにする
-
-## 10.2 記録内容
-- 各ステップ到達時にログを記録
-- 入力内容は記録しない（パスワードなどは保存しない）
-
-## 10.3 保存形式
-- JSON（例：`progress.json`）
-
-### ログ例
-```json
-{
-  "steps": [
-    "boot_menu",
-    "language_select",
-    "install_summary",
-    "disk_select",
-    "software_select",
-    "user_create",
-    "install_progress",
-    "install_complete",
-    "login_screen",
-    "desktop"
-  ]
-}
-```
-
----
-
-# 11. UI デザイン方針
-
-## 11.1 Anaconda 風デザイン
-- 白背景＋青アクセント
-- 左側に設定項目の一覧
-- 右側に詳細画面
-- 完了状態はアイコンで表示
-
-## 11.2 GNOME 風ログイン画面
-- シンプルな中央配置
-- 最低限の UI でよい
-
----
-
-# 12. 実装構成（Tauri）
-
-## 12.1 推奨ディレクトリ構成
-```
-/src
-  /screens
-    start/
-    boot/
-    language/
-    summary/
-    disk/
-    software/
-    user/
-    progress/
-    complete/
-    login/
-    desktop/
-  /components
-    Button.js
-    ProgressBar.js
-    SummaryItem.js
-  /state
-    steps.js
-    user.js
-    software.js
-    disk.js
-  /assets
-    images/
-    styles/
-```
-
----
-
-# 13. 今後の拡張性
-- ネットワーク設定の追加  
-- CLI 画面の疑似体験  
-- インストール後の初期設定画面  
-- 講師モード（解説パネル）
-
----
+MIT License
+
+Copyright (c) 2026
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 

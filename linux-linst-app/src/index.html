@@ -1,342 +1,81 @@
 <!doctype html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AlmaLinux インストールシミュレーター</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>AlmaLinux インストール体験シミュレーター</h1>
-    </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>シミュレーション開始ページ</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* 最小のセンタリング調整：既存の style.css を利用しますが、保険として短いルールを追加 */
+      .pre-sim-wrapper{display:flex;align-items:center;justify-content:center;min-height:70vh}
+      .pre-sim-card{max-width:640px;padding:28px;border-radius:8px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.06);text-align:center}
+      #startSimulation{padding:10px 18px;font-size:16px}
+      /* タイトルを少し大きくする */
+      .pre-sim-card header h1{font-size:24px;margin:0 0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    </style>
+  </head>
+  <body>
+    <div class="container pre-sim-wrapper">
+      <main class="pre-sim-card">
+          <header>
+            <img src="top.png" alt="トップ画像" class="pre-sim-top-img">
+            <h1>AlmaLinux インストール体験シミュレーター</h1>
+          </header>
+          <section>
+            
 
-    <main>
-      <div class="anaconda">
-        <aside class="sidebar">
-          <h3>インストールプロセス</h3>
-            <ol class="steps">
-            <li data-screen="start" class="step-item">メディア挿入</li>
-            <li data-screen="boot" class="step-item">ブートメニュー</li>
-            <li data-screen="language" class="step-item">言語選択</li>
-            <li data-screen="summary" class="step-item">インストール概要</li>
-            <li data-screen="progress" class="step-item">インストール</li>
-            <li data-screen="complete" class="step-item">完了</li>
-            <li data-screen="login" class="step-item">ログイン</li>
-            <li data-screen="desktop" class="step-item">デスクトップ</li>
-          </ol>
-        </aside>
+            <h2 class="sr">学習目標</h2>
+            <ul class="learning-goals">
+              <li>Linux のインストールプロセスを理解する</li>
+            </ul>
 
-        <section class="content">
-          <!-- Start -->
-          <section id="start" class="screen card">
-        <h2>インストールメディア</h2>
-        <p>CD/DVD イメージが検出されました。</p>
-        <button id="insertMedia">インストールメディアを挿入</button>
-          </section>
+            <div class="info">このシミュレーションは実際のシステムに変更を加えません。</div>
 
-          <!-- Boot menu -->
-          <section id="boot" class="screen card hidden">
-            <h2>インストーラー起動</h2>
-            <p class="boot-guide">インストールを開始します。</p>
-            <div class="boot-screen">
-              <ul class="boot-list" tabindex="0">
-                <li class="boot-item" data-value="install">Install AlmaLinux 9.4</li>
-                <li class="boot-item" data-value="test">Test this media &amp; Install AlmaLinux 9.4</li>
-                <li class="boot-item" data-value="trouble">Troubleshooting</li>
-              </ul>
-              <div class="boot-footer">
-                <p class="note">Press ↑/↓ to move, Enter to choose. Press Tab for full configuration options on menu items.</p>
-                <div class="auto-boot">Automatic boot in <span id="countdown">60</span> seconds...</div>
-              </div>
+            <div class="actions">
+              <button id="startSimulation">シミュレーション開始</button>
             </div>
           </section>
-
-      <!-- Language -->
-      <section id="language" class="screen hidden">
-        <h2>ALMALINUX 9.4 へようこそ。</h2>
-        <p>インストール時に使用する言語を選択してください。</p>
-        <div class="lang-chooser">
-          <div class="lang-left">
-            <ul id="languageList" class="lang-list"></ul>
-            <div class="lang-search-wrap">
-              <div class="lang-search-box">
-                <input id="langSearch" placeholder="" aria-label="言語を検索">
-                <button id="langClear" class="lang-clear" aria-label="クリア">✕</button>
-              </div>
-            </div>
-          </div>
-          <div class="lang-right">
-            <div id="langDetail" class="lang-detail">
-              <!-- 選択中の言語の詳細がここに入る -->
-            </div>
-          </div>
+            <footer class="pre-sim-card-footer" role="contentinfo" aria-label="フッター情報">
+              <div class="pre-sim-card-footer-left">Version 1.0.0</div>
+              <div class="pre-sim-card-footer-right">Builder: tksarah</div>
+            </footer>
+          </main>
         </div>
-        <div style="margin-top:12px">
-          <button id="confirmLang">次へ</button>
-        </div>
-      </section>
+    <script>
+      document.getElementById('startSimulation').addEventListener('click', function(){
+        // シングルボタンで通常遷移
+        window.location.href = 'app-main.html';
+      });
+    </script>
 
-      <!-- Summary / Settings overview -->
-      <section id="summary" class="screen hidden">
-        <h2>インストール概要</h2>
-        <p>以下の設定を確認・編集してインストールを開始します。</p>
+    <style>
+      .pre-sim-top-img{width:90%;max-width:680px;height:auto;display:block;margin:0 auto 12px;border-radius:8px}
+      .meta-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px}
+      .version{color:#6b7280;font-size:13px}
+      .learning-goals{list-style:disc;padding-left:18px;text-align:left;color:#14213d;margin:8px 0}
+      .info{background:#f8fafc;border-left:4px solid #60a5fa;padding:10px;border-radius:6px;color:#0f172a;margin:12px 0}
+      .checklist{text-align:left;margin:12px 0}
+      .checklist ul{padding-left:18px;margin:6px 0}
+      .hints{background:#fff7ed;border:1px solid #fde3b8;padding:12px;border-radius:8px;margin-top:14px}
+      .secondary{background:transparent;border:1px solid #e6e9f2;color:#334155;padding:10px 14px;border-radius:10px;font-size:14px;cursor:pointer}
+      .actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
+      @media (min-width:900px){
+        .pre-sim-card{max-width:900px}
+      }
 
-        <div class="setting-grid">
-          <div class="setting-column">
-            <h3>地域設定</h3>
-            <div class="setting-card">
-              <div class="setting-body">
-                <div class="setting-title">キーボード</div>
-                <div class="setting-sub">日本語</div>
-              </div>
-            </div>
-            <div class="setting-card">
-              <div class="setting-body">
-                <div class="setting-title">言語サポート</div>
-                <div class="setting-sub">日本語（日本）</div>
-              </div>
-            </div>
-            <div class="setting-card">
-              <div class="setting-body">
-                <div class="setting-title">時刻と日付</div>
-                <div class="setting-sub">アジア/東京 タイムゾーン</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="setting-column">
-            <h3>ソフトウェア</h3>
-            <div id="link-software" class="setting-card clickable">
-              <div class="setting-body">
-                <div class="setting-title">ソフトウェアの選択</div>
-                <div class="setting-sub">サーバー（GUI 使用）</div>
-              </div>
-              <div id="s-software" class="setting-status status-missing">未設定</div>
-            </div>
-            <div class="setting-card">
-              <div class="setting-body">
-                <div class="setting-title">インストールソース</div>
-                <div class="setting-sub">ローカルメディア</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="setting-column">
-            <h3>システム</h3>
-            <div id="link-disk" class="setting-card clickable">
-              <div class="setting-body">
-                <div class="setting-title">インストール先</div>
-                <div class="setting-sub">ディスクを選択</div>
-              </div>
-              <div id="s-disk" class="setting-status status-missing">未設定</div>
-            </div>
-            <div class="setting-card">
-              <div class="setting-body">
-                <div class="setting-title">ネットワークとホスト名</div>
-                <div class="setting-sub">未接続</div>
-              </div>
-            </div>
-            <h3 style="margin-top:12px">ユーザーの設定</h3>
-            <div id="link-user" class="setting-card clickable">
-              <div class="setting-body">
-                <div class="setting-title">ユーザーの作成</div>
-                <div class="setting-sub">インストール後にログインするユーザーを作成します</div>
-              </div>
-              <div id="s-user" class="setting-status status-missing">未設定</div>
-            </div>
-            <div class="setting-card">
-              <div class="setting-body">
-                <div class="setting-title">root パスワード</div>
-                <div class="setting-sub">root アカウントは無効化</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:12px">
-          <button id="startInstall" disabled>インストール開始</button>
-        </div>
-      </section>
-
-          <!-- Disk select -->
-          <section id="disk" class="screen card hidden">
-        <h2>インストール先</h2>
-        <p>インストールするデバイスを選択してください。</p>
-
-        <div class="device-list">
-          <div class="device-section">
-            <div class="device-section-title">ローカル標準ディスク</div>
-            <div class="device-box">
-              <div class="device-check"><input type="radio" name="disk" value="sda"></div>
-              <div class="device-size">20 GiB</div>
-              <div class="device-icon">🖴</div>
-              <div class="device-info">
-                <div class="device-name">ATA VBOX HARDDISK</div>
-                <div class="device-desc">sda / 1023 KiB の空き</div>
-              </div>
-            </div>
-            <div class="device-box">
-              <div class="device-check"><input type="radio" name="disk" value="sdb"></div>
-              <div class="device-size">10 GiB</div>
-              <div class="device-icon">🖴</div>
-              <div class="device-info">
-                <div class="device-name">USB ストレージ</div>
-                <div class="device-desc">sdb / 9 GiB の空き</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="device-section">
-            <div class="device-section-title">特殊なディスクおよびネットワークディスク</div>
-            <div class="device-box empty">
-              <div class="device-empty">未選択のディスクに変更は加えられません。</div>
-            </div>
-            <div style="margin-top:8px"><button id="addDisk">ディスクの追加(A)...</button></div>
-          </div>
-        </div>
-
-        <div class="storage-settings">
-          <div class="storage-title">ストレージの設定</div>
-          <div class="storage-options">
-            <label style="margin-right:12px"><input type="radio" name="storageMode" value="automatic" checked> 自動構成</label>
-            <label><input type="radio" name="storageMode" value="custom"> カスタム</label>
-          </div>
-          <div style="margin-top:8px"><label><input type="checkbox" id="addFreeSpace"> 利用可能な領域を追加する</label></div>
-        </div>
-
-        <div class="encryption-settings" style="margin-top:10px">
-          <label><input type="checkbox" id="encryptData"> データを暗号化する。パスフレーズの設定は、次のセクションで行います。</label>
-        </div>
-
-        <div style="margin-top:12px">
-          <button id="confirmDisk">完了</button>
-        </div>
-          </section>
-
-          <!-- Software select -->
-          <section id="software" class="screen card hidden">
-        <h2>ソフトウェアの選択</h2>
-        <p>インストールするソフトウェアを選択してください。</p>
-
-        <div class="software-grid">
-          <div class="software-main">
-            <div class="sw-item enabled">
-              <label><input type="checkbox" id="base_server_gui"> <strong>サーバー（GUI 使用）</strong></label>
-              <div class="sw-desc">デスクトップ環境を含むサーバー向けの基本構成</div>
-            </div>
-            <div class="sw-item enabled">
-              <label><input type="checkbox" id="extra_basic_web"> <strong>ベーシック Web サーバー</strong></label>
-              <div class="sw-desc">Apache 等の基本的な Web サーバーをインストールします</div>
-            </div>
-            <div class="sw-item disabled">
-              <label><input type="checkbox" disabled> データベースサーバー</label>
-            </div>
-            <div class="sw-item disabled">
-              <label><input type="checkbox" disabled> コンテナランタイム</label>
-            </div>
-            <div class="sw-item disabled">
-              <label><input type="checkbox" disabled> モニタリングツール</label>
-            </div>
-            <div class="sw-item disabled">
-              <label><input type="checkbox" disabled> 開発ツール</label>
-            </div>
-            <div class="sw-item disabled">
-              <label><input type="checkbox" disabled> 仮想化サポート</label>
-            </div>
-          </div>
-          <div class="software-help">
-            <h3>選択の説明</h3>
-            <p>教育目的のため、現在は「サーバー（GUI 使用）」と「ベーシック Web サーバー」のみ選択可能です。他のプロファイルは無効化されています。</p>
-          </div>
-        </div>
-
-        <div style="margin-top:12px">
-          <button id="confirmSoftware">完了</button>
-        </div>
-          </section>
-
-          <!-- User create -->
-          <section id="user" class="screen card hidden">
-        <h2>ユーザー作成</h2>
-        <label>フルネーム（任意）<br><input id="fullname"></label><br>
-        <label>ユーザー名（必須） <span class="req">*</span><br><input id="username" required></label><br>
-        <label>パスワード（必須） <span class="req">*</span><br><input id="password" type="password"></label><br>
-        <label>パスワード確認（必須） <span class="req">*</span><br><input id="password2" type="password"></label><br>
-        <label><input id="isAdmin" type="checkbox"> このユーザーを管理者にする</label><br>
-        <label><input id="requirePw" type="checkbox" checked> パスワードを要求する</label><br>
-        <div id="userErrors" class="errors"></div>
-        <button id="confirmUser">完了</button>
-          </section>
-
-          <!-- Install progress -->
-          <section id="progress" class="screen card hidden">
-        <h2>インストール中</h2>
-        <div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
-        <pre id="logArea" class="log"></pre>
-          </section>
-
-          <!-- Complete -->
-          <section id="complete" class="screen card hidden">
-        <h2>インストールが完了しました</h2>
-        <button id="reboot">再起動</button>
-          </section>
-
-          <!-- Login -->
-          <section id="login" class="screen card hidden">
-        <div class="gnome-login">
-          <div class="gnome-card">
-            <div class="gnome-avatar" id="gnomeAvatar">
-              <!-- 人物アイコン（SVG） -->
-              <svg width="72" height="72" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <circle cx="12" cy="8" r="4" fill="#d9d9d9" />
-                <path d="M4 20c0-3.3137 2.6863-6 6-6h4c3.3137 0 6 2.6863 6 6" fill="#e9e9e9" />
-                <path d="M4 20c0-3.3137 2.6863-6 6-6h4c3.3137 0 6 2.6863 6 6" stroke="#bdbdbd" stroke-width="0.5" fill-opacity="0"/>
-              </svg>
-            </div>
-            <div class="gnome-username" id="accountName"></div>
-            <form id="gnomeLoginForm">
-              <div class="input-wrap">
-                <input id="loginUser" placeholder="ユーザー名" autocomplete="username">
-              </div>
-              <div class="input-wrap">
-                <input id="loginPass" type="password" placeholder="パスワード" autocomplete="current-password">
-              </div>
-              <div id="loginError" class="errors"></div>
-              <button id="doLogin">ログイン</button>
-            </form>
-            <!-- removed 'account not found' helper per request -->
-          </div>
-        </div>
-          </section>
-
-          <!-- Desktop -->
-          <section id="desktop" class="screen card hidden">
-        <div class="desktop-welcome">
-          <div class="desktop-art" aria-hidden="true">
-            <!-- decorative SVG / image placeholder -->
-            <img src="teacher.html" alt="" style="display:none">
-          </div>
-          <div class="desktop-body">
-            <div class="desktop-illustration"></div>
-            <h2>AlmaLinux へようこそ</h2>
-            <p id="welcomeName" class="desktop-sub">操作方法については、ツアーを確認してください。</p>
-            <div style="margin-top:18px">
-              <!-- 終了ボタンを追加 -->
-              <button id="finish">終了</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-        </section>
-      </div>
-    </main>
-
-    <!-- footer removed per request -->
-  </div>
-
-  <script src="app.js"></script>
-</body>
+      /* Footer moved inside card: show muted left/right info (stylish italic) */
+      .pre-sim-card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #eef6fb;margin-top:18px;font-size:13px}
+      .pre-sim-card-footer-left,.pre-sim-card-footer-right{
+        color:#6b7280; /* muted gray */
+        font-style:italic;
+        font-weight:400; /* normal weight, not emphasized */
+        font-family: Georgia, 'Times New Roman', serif;
+        letter-spacing:0.1px;
+        opacity:0.95;
+      }
+      @media(max-width:520px){
+        .pre-sim-card-footer{flex-direction:column;gap:8px;text-align:center}
+      }
+    </style>
+  </body>
 </html>

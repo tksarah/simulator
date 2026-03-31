@@ -318,28 +318,98 @@ document.getElementById('startInstall').addEventListener('click',()=>{
 
 // Fake install
 function startFakeInstall(){
-  const logs = [
-    'パッケージ httpd をインストール中...',
-    'パッケージ php をインストール中...',
-    '依存関係を解決しています...',
-    'ファイルをコピーしています...',
-    'システム設定を適用中...',
-    'サービスを有効化しています...',
-    'ブートローダをインストールしています...',
-    'インストール完了処理を実行しています...'
+  // 詳細カテゴリごとのメッセージ群（ユーザー指定の語尾パターンに合わせて揃えている）
+  const messagesByCategory = [
+    // 基本進行（汎用）
+    [
+      'インストール環境を準備しています',
+      'システム設定を適用しています',
+      '変更を保存しています',
+      '処理を完了しています',
+      '操作を実行しています'
+    ],
+    // ストレージ・ファイルシステム
+    [
+      'ディスクを検出しています',
+      'パーティションを作成しています',
+      'ファイルシステムを作成しています',
+      'マウントポイントを設定しています',
+      'データをコピーしています',
+      'データ整合性を検証しています'
+    ],
+    // パッケージ・依存関係
+    [
+      'パッケージデータベースを更新しています',
+      '依存関係を解決しています',
+      'パッケージをインストールしています',
+      'パッケージをアップグレードしています',
+      '不要なパッケージを削除しています',
+      'パッケージ署名を検証しています'
+    ],
+    // ネットワーク・ミラー
+    [
+      'ネットワーク接続を初期化しています',
+      '最適なミラーを選択しています',
+      'リポジトリに接続しています',
+      'パッケージをダウンロードしています',
+      'ダウンロードを検証しています'
+    ],
+    // ユーザー・セキュリティ
+    [
+      'タイムゾーンを設定しています',
+      'ロケールを設定しています',
+      'ホスト名を設定しています',
+      'ユーザーアカウントを作成しています',
+      'root パスワードを設定しています',
+      'SSH 鍵を生成しています',
+      'ファイアウォールルールを適用しています',
+      '権限を設定しています'
+    ],
+    // ブート・システム
+    [
+      'ブートローダをインストールしています',
+      'initramfs を生成しています',
+      'サービスを有効化しています',
+      'システムサービスを再起動しています'
+    ],
+    // ドライバ・ハードウェア
+    [
+      'ハードウェアを検出しています',
+      'ドライバを読み込んでいます',
+      'デバイスファームウェアを更新しています',
+      'ネットワークインターフェイスを初期化しています'
+    ]
   ];
+
+  const flatMessages = [];
+  // 各カテゴリを順に一定回数ずつ出力していく（インストールらしい流れを演出）
+  messagesByCategory.forEach((group, gi)=>{
+    // 各カテゴリのメッセージを2回ずつ繰り返して長さを稼ぐ
+    for(let r=0;r<2;r++){
+      group.forEach(m=> flatMessages.push(m + '...'));
+    }
+    // カテゴリ間のブレイクメッセージ
+    if(gi < messagesByCategory.length-1) flatMessages.push('次の処理を適用しています...');
+  });
+
   const logArea = document.getElementById('logArea');
-  let idx=0;
-  const total = 30; // lines
+  let idx = 0;
+  const total = flatMessages.length;
+  // ユーザー要求に合わせ、全体を約5秒で完了するように調整する
+  const targetDuration = 4800; // ms 目標総時間（約5秒）
+  // 各メッセージの間隔を均等に割り当てる。ただし短すぎないよう最小間隔を設定
+  const minInterval = 30;
+  const perMsg = Math.max(minInterval, Math.floor(targetDuration / Math.max(1, total)));
   const interval = setInterval(()=>{
     if(idx >= total){ clearInterval(interval); finishInstall(); return; }
-    const msg = logs[Math.floor(Math.random()*logs.length)];
+    const msg = flatMessages[idx];
     logArea.textContent += msg + '\n';
     logArea.scrollTop = logArea.scrollHeight;
-    const pct = Math.round((idx/ (total-1)) * 100);
-    document.getElementById('progressFill').style.width = pct + '%';
+    const pct = Math.round(((idx+1)/ total) * 100);
+    const fill = document.getElementById('progressFill');
+    if(fill) fill.style.width = pct + '%';
     idx++;
-  }, 120 + Math.random()*180);
+  }, perMsg);
 }
 
 function finishInstall(){
@@ -364,34 +434,22 @@ document.getElementById('reboot').addEventListener('click',()=>{
 const finishBtn = document.getElementById('finish');
 if(finishBtn){
   finishBtn.addEventListener('click', ()=>{
-    // directly perform exit flow (no confirmation)
+    // Clear demo data and return to pre-simulation page
     try{ localStorage.removeItem('installer_user'); }catch(e){}
     try{ localStorage.clear(); }catch(e){}
-    recordStep('exit');
-    try{ window.close(); }catch(e){ }
-    try{
-      if(window.__TAURI__ && window.__TAURI__.invoke){
-        try{ window.localStorage.clear(); }catch(e){}
-        window.__TAURI__.invoke('clear_and_exit');
-        return;
-      }
-    }catch(e){ }
+    // also attempt to clear caches where available
     try{
       if(window.caches && typeof window.caches.keys === 'function'){
-        caches.keys().then(names=>{
-          return Promise.all(names.map(n=>caches.delete(n)));
-        }).catch(()=>{}).finally(()=>{
-          const url = window.location.pathname + '?_cleared=' + Date.now();
-          window.location.replace(url);
+        caches.keys().then(names=> Promise.all(names.map(n=>caches.delete(n)))).catch(()=>{}).finally(()=>{
+          recordStep('exit');
+          window.location.href = 'index.html';
         });
-      } else {
-        const url = window.location.pathname + '?_cleared=' + Date.now();
-        window.location.replace(url);
+        return;
       }
-    }catch(e){
-      show('start');
-      alert('localStorage と一部キャッシュをクリアしました。アプリを閉じてください。');
-    }
+    }catch(e){}
+    recordStep('exit');
+    // navigate back to pre-simulation start page
+    try{ window.location.href = 'index.html'; }catch(e){ /* ignore */ }
   });
 }
 
@@ -409,7 +467,9 @@ document.getElementById('doLogin').addEventListener('click',(e)=>{
   const installerUser = state.user && state.user.username ? state.user.username.toLowerCase() : null;
   // installer password is stored in localStorage and restored into runtime state._installerPassword (see DOMContentLoaded restore)
   const installerPass = state._installerPassword || null;
-  if((installerUser && user.toLowerCase() === installerUser && pass === installerPass) || (user.toLowerCase() === 'techc' && pass === 'P@ssW0rd')){
+    if((installerUser && user.toLowerCase() === installerUser && pass === installerPass) ||
+      (user.toLowerCase() === 'techc' && pass === 'P@ssW0rd') ||
+      (user.toLowerCase() === 'student' && pass === 'password')){
     recordStep('login_screen');
     recordStep('desktop');
     const welcomeEl = document.getElementById('welcomeName');
